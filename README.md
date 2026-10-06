@@ -13,6 +13,27 @@ mis à jour en direct toutes les 20 secondes **sans dépasser le quota d'une cl�
 | `clean` | Carte détaillée : rang, RR, niveau, variation, puis tuiles Bilan, Victoires, RR session et K/D/A | 520 × 240 |
 | `compact` | Version une ligne d'Aura : rang, RR, variation, bilan V/D/N et RR de la session | 420 × 110 |
 
+### Aperçu
+
+Exemples avec de vraies données (`Veqaj#111`, EU, session sur les 2 derniers jours). Le fond sombre est ajouté pour
+la capture : dans OBS, l'overlay est transparent autour de la carte.
+
+**Aura**
+
+![Overlay Aura](docs/screenshots/aura.png)
+
+**Classique** (`clean`)
+
+![Overlay Classique](docs/screenshots/clean.png)
+
+**Compact**
+
+![Overlay Compact](docs/screenshots/compact.png)
+
+**Page d'accueil** : générateur d'URL avec aperçu en direct
+
+![Page d'accueil](docs/screenshots/accueil.png)
+
 ## Installation
 
 Prérequis : [Node.js](https://nodejs.org/) 20 ou plus récent.
