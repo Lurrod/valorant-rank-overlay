@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<%- include('../partials/overlay-head', { title: 'Aura', stylesheets: ['aura.css'] }) %>
+</head>
+<body class="aura-overlay" data-api="<%= apiPath %>" data-refresh="<%= refreshSeconds %>" data-state="<%= error ? 'error' : 'ok' %>">
+    <% if (error) { %>
+        <div class="aura-card is-error" role="alert">
+            <div class="aura-grain"></div>
+            <div class="aura-info">
+                <span class="aura-label"><%= player.name %><span class="tag">#<%= player.tag %></span></span>
+                <p class="aura-error-title"><%= error.message %></p>
+                <% if (error.details) { %><p class="aura-error-detail"><%= error.details %></p><% } %>
+            </div>
+        </div>
+    <% } else { %>
+        <div class="aura-card">
+            <div class="aura-grain"></div>
+
+            <div class="aura-orb">
+                <img data-rank-icon src="<%= fields.rankIcon %>" alt="<%= fields.rankName %>">
+            </div>
+
+            <div class="aura-info">
+                <span class="aura-label">
+                    <span data-field="player"><%= fields.text.player %></span><span class="tag" data-field="tag"><%= fields.text.tag %></span><span data-show="level" <%= fields.visible.level ? '' : 'hidden' %>><span class="dot">·</span>niv. <span data-field="level"><%= fields.text.level %></span></span>
+                </span>
+
+                <span class="aura-rank" data-field="rank"><%= fields.text.rank %></span>
+
+                <span class="aura-rr">
+                    <span><span class="value" data-field="rr"><%= fields.text.rr %></span> RR</span>
+                    <span class="aura-delta <%= fields.sign.delta %>" data-field="delta" data-sign="delta" data-show="delta" <%= fields.visible.delta ? '' : 'hidden' %>><%= fields.text.delta %></span>
+                </span>
+
+                <span class="aura-session" aria-label="Bilan de la session">
+                    <span class="stat win"><span class="num" data-field="wins"><%= fields.text.wins %></span>V</span>
+                    <span class="stat loss"><span class="num" data-field="losses"><%= fields.text.losses %></span>D</span>
+                    <span class="stat" data-show="draws" <%= fields.visible.draws ? '' : 'hidden' %>><span class="num" data-field="draws"><%= fields.text.draws %></span>N</span>
+                    <span class="sep"></span>
+                    <span class="winrate" data-field="winrate"><%= fields.text.winrate %></span>
+                    <span class="session-rr <%= fields.sign['session-rr'] %>" data-sign="session-rr" data-show="session-rr" <%= fields.visible['session-rr'] ? '' : 'hidden' %>><span data-field="session-rr"><%= fields.text['session-rr'] %></span> RR</span>
+                </span>
+            </div>
+        </div>
+    <% } %>
+<%- include('../partials/overlay-scripts') %>
+</body>
+</html>

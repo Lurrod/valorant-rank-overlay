@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<%- include('../partials/overlay-head', { title: 'Compact', stylesheets: ['aura.css', 'compact.css'] }) %>
+</head>
+<body class="compact-overlay" data-api="<%= apiPath %>" data-refresh="<%= refreshSeconds %>" data-state="<%= error ? 'error' : 'ok' %>">
+    <% if (error) { %>
+        <div class="compact-card is-error" role="alert">
+            <div class="aura-grain"></div>
+            <span class="compact-error-title"><%= error.message %></span>
+            <span class="compact-error-player"><%= player.name %>#<%= player.tag %></span>
+        </div>
+    <% } else { %>
+        <div class="compact-card">
+            <div class="aura-grain"></div>
+
+            <div class="compact-icon">
+                <img data-rank-icon src="<%= fields.rankIcon %>" alt="<%= fields.rankName %>">
+            </div>
+
+            <div class="compact-rank">
+                <span class="compact-rank-name" data-field="rank"><%= fields.text.rank %></span>
+                <span class="compact-rr">
+                    <span class="value" data-field="rr"><%= fields.text.rr %></span> RR
+                    <span class="compact-delta <%= fields.sign.delta %>" data-field="delta" data-sign="delta" data-show="delta" <%= fields.visible.delta ? '' : 'hidden' %>><%= fields.text.delta %></span>
+                </span>
+            </div>
+
+            <span class="compact-divider" aria-hidden="true"></span>
+
+            <div class="compact-session" aria-label="Bilan de la session">
+                <span class="compact-record">
+                    <span class="win"><span data-field="wins"><%= fields.text.wins %></span>V</span>
+                    <span class="loss"><span data-field="losses"><%= fields.text.losses %></span>D</span>
+                    <span class="draw" data-show="draws" <%= fields.visible.draws ? '' : 'hidden' %>><span data-field="draws"><%= fields.text.draws %></span>N</span>
+                </span>
+                <span class="compact-session-rr <%= fields.sign['session-rr'] %>" data-sign="session-rr" data-show="session-rr" <%= fields.visible['session-rr'] ? '' : 'hidden' %>><span data-field="session-rr"><%= fields.text['session-rr'] %></span> RR</span>
+            </div>
+        </div>
+    <% } %>
+<%- include('../partials/overlay-scripts') %>
+</body>
+</html>

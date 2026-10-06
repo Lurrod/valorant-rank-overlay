@@ -1,0 +1,31 @@
+{
+  "name": "valorant-rank-tracker",
+  "version": "1.0.0",
+  "description": "Overlays OBS pour afficher son rang Valorant, ses RR et le bilan de session, mis à jour en direct sans dépasser le quota de l'API HenrikDev.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "node --test \"test/**/*.test.js\"",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=\"src/**/*.js\" --test-coverage-include=public/js/fields.js --test-coverage-lines=80 --test-coverage-branches=80 --test-coverage-functions=80 \"test/**/*.test.js\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "valorant",
+    "rank",
+    "tracker",
+    "stream",
+    "overlay",
+    "points",
+    "rr"
+  ],
+  "author": "deemdll",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}

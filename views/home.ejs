@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overlay Valorant</title>
+    <link rel="stylesheet" href="/css/aura.css?v=<%= assetVersion %>">
+    <link rel="stylesheet" href="/css/home.css?v=<%= assetVersion %>">
+</head>
+<body class="home">
+    <div class="home-backdrop" aria-hidden="true">
+        <span class="blob blob-a"></span>
+        <span class="blob blob-b"></span>
+        <span class="blob blob-c"></span>
+        <span class="aura-grain"></span>
+    </div>
+
+    <main class="home-main">
+        <header class="home-hero">
+            <span class="home-eyebrow">Overlay de stream</span>
+            <h1>Ton rang, <span class="glow">en douceur.</span></h1>
+            <p>Génère l'URL de ton overlay, puis ajoute-la dans OBS comme source « Navigateur ».</p>
+        </header>
+
+        <form class="home-form" id="overlay-form" novalidate>
+            <div class="field-row">
+                <label class="field">
+                    <span class="field-label">Pseudo Riot</span>
+                    <input name="name" type="text" placeholder="Pseudo" autocomplete="off" maxlength="16" required>
+                </label>
+                <label class="field field-tag">
+                    <span class="field-label">Tag</span>
+                    <input name="tag" type="text" placeholder="EUW" autocomplete="off" maxlength="6" required>
+                </label>
+            </div>
+
+            <div class="field-row field-row-even">
+                <label class="field">
+                    <span class="field-label">Région</span>
+                    <span class="select-wrap">
+                        <select name="region">
+                            <% Object.entries(regions).forEach(([id, label]) => { %>
+                                <option value="<%= id %>" <%= id === 'eu' ? 'selected' : '' %>><%= label %></option>
+                            <% }) %>
+                        </select>
+                        <svg class="select-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </span>
+                </label>
+                <label class="field">
+                    <span class="field-label">Plateforme</span>
+                    <span class="select-wrap">
+                        <select name="platform">
+                            <% Object.entries(platforms).forEach(([id, label]) => { %>
+                                <option value="<%= id %>"><%= label %></option>
+                            <% }) %>
+                        </select>
+                        <svg class="select-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </span>
+                </label>
+            </div>
+
+            <fieldset class="field">
+                <legend class="field-label">Style</legend>
+                <div class="style-picker">
+                    <% Object.entries(styles).forEach(([id, style]) => { %>
+                        <label class="style-option">
+                            <input type="radio" name="style" value="<%= id %>" <%= id === 'aura' ? 'checked' : '' %>>
+                            <span><%= style.label %></span>
+                        </label>
+                    <% }) %>
+                </div>
+            </fieldset>
+
+            <label class="toggle">
+                <input type="checkbox" name="session">
+                <span class="toggle-track" aria-hidden="true"></span>
+                <span>Démarrer la session maintenant <small>(par défaut : depuis <%= sessionResetHour %> h ce matin)</small></span>
+            </label>
+
+            <div class="url-output" id="url-output" hidden>
+                <code id="overlay-url"></code>
+                <div class="url-actions">
+                    <button type="button" class="btn btn-ghost" id="preview-btn">Aperçu</button>
+                    <button type="button" class="btn btn-filled" id="copy-btn">Copier l'URL</button>
+                </div>
+            </div>
+            <p class="form-hint" id="form-hint">Renseigne ton pseudo et ton tag pour générer l'URL.</p>
+        </form>
+
+        <section class="preview" id="preview" hidden>
+            <iframe id="preview-frame" title="Aperçu de l'overlay"></iframe>
+        </section>
+
+        <footer class="home-footer">
+            Mise à jour toutes les <%= refreshSeconds %> s · données HenrikDev mises en cache pour respecter le quota de ta clé.
+        </footer>
+    </main>
+
+    <script src="/js/home.js?v=<%= assetVersion %>" defer></script>
+</body>
+</html>

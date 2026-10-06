@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<%- include('../partials/overlay-head', { title: 'Classique', stylesheets: ['aura.css', 'clean.css'] }) %>
+</head>
+<body class="clean-overlay" data-api="<%= apiPath %>" data-refresh="<%= refreshSeconds %>" data-state="<%= error ? 'error' : 'ok' %>">
+    <% if (error) { %>
+        <div class="clean-card is-error" role="alert">
+            <div class="aura-grain"></div>
+            <span class="clean-label"><%= player.name %>#<%= player.tag %></span>
+            <p class="clean-error-title"><%= error.message %></p>
+            <% if (error.details) { %><p class="clean-error-detail"><%= error.details %></p><% } %>
+        </div>
+    <% } else { %>
+        <div class="clean-card">
+            <div class="aura-grain"></div>
+
+            <header class="clean-head">
+                <div class="clean-icon">
+                    <img data-rank-icon src="<%= fields.rankIcon %>" alt="<%= fields.rankName %>">
+                </div>
+                <div class="clean-identity">
+                    <span class="clean-label">
+                        <span data-field="player"><%= fields.text.player %></span><span class="tag" data-field="tag"><%= fields.text.tag %></span><span data-show="level" <%= fields.visible.level ? '' : 'hidden' %>><span class="dot">·</span>niv. <span data-field="level"><%= fields.text.level %></span></span>
+                    </span>
+                    <span class="clean-rank" data-field="rank"><%= fields.text.rank %></span>
+                    <span class="clean-rr">
+                        <span class="value" data-field="rr"><%= fields.text.rr %></span> RR
+                        <span class="clean-delta <%= fields.sign.delta %>" data-field="delta" data-sign="delta" data-show="delta" <%= fields.visible.delta ? '' : 'hidden' %>><%= fields.text.delta %></span>
+                    </span>
+                </div>
+            </header>
+
+            <div class="clean-divider" aria-hidden="true"></div>
+
+            <dl class="clean-stats" aria-label="Session du jour">
+                <div class="clean-tile">
+                    <dt>Bilan</dt>
+                    <dd class="clean-record">
+                        <span class="win"><span data-field="wins"><%= fields.text.wins %></span>V</span>
+                        <span class="loss"><span data-field="losses"><%= fields.text.losses %></span>D</span>
+                        <span class="draw" data-show="draws" <%= fields.visible.draws ? '' : 'hidden' %>><span data-field="draws"><%= fields.text.draws %></span>N</span>
+                    </dd>
+                </div>
+                <div class="clean-tile">
+                    <dt>Victoires</dt>
+                    <dd data-field="winrate"><%= fields.text.winrate %></dd>
+                </div>
+                <div class="clean-tile">
+                    <dt>RR session</dt>
+                    <dd class="clean-session-rr <%= fields.sign['session-rr'] %>" data-field="session-rr" data-sign="session-rr"><%= fields.text['session-rr'] %></dd>
+                </div>
+                <div class="clean-tile">
+                    <dt>K / D / A</dt>
+                    <dd data-field="kda"><%= fields.text.kda %></dd>
+                </div>
+            </dl>
+        </div>
+    <% } %>
+<%- include('../partials/overlay-scripts') %>
+</body>
+</html>

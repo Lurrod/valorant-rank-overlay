@@ -1,0 +1,145 @@
+/* Compact — version une ligne de l'overlay Aura (DA « Biomorphic Glow »). Variables : aura.css. */
+
+body.compact-overlay {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: transparent;
+    color: var(--ivory);
+    font-family: 'Geist', 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.compact-card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px 12px 12px;
+    border-radius: 32px;
+    background: rgba(5, 5, 5, 0.78);
+    box-shadow: inset 0 0 0 1px var(--hairline);
+    overflow: hidden;
+    white-space: nowrap;
+    animation: aura-enter 900ms var(--ease) both;
+}
+
+/* Halo violet derrière l'icône, reflet bleuté à droite */
+.compact-card::before,
+.compact-card::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(22px);
+    pointer-events: none;
+}
+
+.compact-card::before {
+    width: 110px;
+    height: 90px;
+    left: -24px;
+    top: -14px;
+    background: radial-gradient(circle at 45% 50%, rgba(199, 183, 255, 0.5), rgba(141, 124, 255, 0.14) 55%, transparent 75%);
+    animation: aura-drift 14s var(--ease) infinite alternate;
+}
+
+.compact-card::after {
+    width: 150px;
+    height: 80px;
+    right: -50px;
+    bottom: -40px;
+    background: radial-gradient(circle, rgba(168, 217, 255, 0.24), transparent 72%);
+    animation: aura-drift 18s var(--ease) infinite alternate-reverse;
+}
+
+.compact-icon {
+    position: relative;
+    flex: none;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+}
+
+.compact-icon img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(199, 183, 255, 0.35));
+}
+
+.compact-rank,
+.compact-session {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.compact-rank-name {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.15;
+    background: linear-gradient(100deg, var(--ivory) 30%, var(--glow-purple) 75%, var(--pale-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.compact-rr {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--ink-soft);
+}
+
+.compact-rr .value,
+.compact-delta,
+.compact-record,
+.compact-session-rr {
+    font-family: 'Geist Mono', 'Geist', monospace;
+}
+
+.compact-rr .value { font-size: 13px; color: var(--ivory); }
+
+.compact-delta { margin-left: 6px; font-size: 11px; }
+.compact-delta.up, .compact-session-rr.up { color: var(--glow-blue); text-shadow: 0 0 10px rgba(184, 234, 255, 0.5); }
+.compact-delta.down, .compact-session-rr.down { color: var(--rose); text-shadow: 0 0 10px rgba(242, 184, 208, 0.4); }
+
+.compact-divider {
+    position: relative;
+    z-index: 2;
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, transparent, rgba(199, 183, 255, 0.35), transparent);
+}
+
+.compact-record { display: flex; gap: 10px; font-size: 15px; font-weight: 300; color: var(--ink-soft); }
+.compact-record .win span { color: var(--glow-blue); }
+.compact-record .loss span { color: var(--rose); }
+.compact-record .draw span { color: var(--cream); }
+
+.compact-session-rr { font-size: 11px; color: var(--ink-faint); }
+
+/* Données de secours (quota atteint) */
+.is-stale .compact-card { opacity: 0.85; }
+
+/* Erreur */
+.compact-card.is-error { flex-direction: column; align-items: flex-start; gap: 2px; padding: 14px 24px; }
+.compact-error-title { position: relative; z-index: 2; font-size: 13px; font-weight: 500; color: var(--cream); white-space: normal; max-width: 300px; }
+.compact-error-player { position: relative; z-index: 2; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+
+@media (prefers-reduced-motion: reduce) {
+    .compact-card, .compact-card::before, .compact-card::after { animation: none; }
+}
